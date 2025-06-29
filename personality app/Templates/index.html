@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <title>Kişilik Tahmini</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body{
+margin:0;
+height: 100vh;
+justify-content: center;
+align-items: center;
+background-color:rgb(33, 66, 35);
+font-family: 'Poppins', sans-serif;
+}
+.menu {
+padding: 20px;
+margin-top: 10px; /* 👈 Bu satırı ekle */
+}
+.menu ul{
+margin: 0;
+padding:0;
+display:flex;
+list-style-type: none;
+justify-content: center;
+}
+.menu ul li a{
+color: #ccc;
+font-size: 18px;
+text-decoration: none;
+text-transform: uppercase;
+padding: 8px 16px;
+margin: 0 12px;
+position: relative;
+transition: all 0.4s ease;
+font-weight:500;
+letter-spacing:1px;
+}
+.menu ul li a:hover{
+background-color: #1c2d22;
+color:rgb(207, 198, 36);
+}
+.menu ul li a::before,
+.menu ul li a::after{
+content: "";
+position:absolute;
+align-items: center;
+width: 12px;
+height: 12px;
+border: 2px solid rgb(207, 198, 36);
+opacity: 0;
+transition: all 0.4s ease;
+}
+.menu ul li a::before{
+bottom:10px;
+left: 10px;
+border-width: 0 0 2px 2px;
+}
+.menu ul li a::after{
+top: 10px;
+right: 10px;
+border-width: 2px 2px 0 0;
+}
+.menu ul li a:hover::before{
+opacity: 1;
+bottom: -8px;
+left: -8px;
+}
+.menu ul li a:hover::after{
+opacity: 1;
+top: -8px;
+right: -8px;
+}
+
+.form-container {
+background-color:rgb(196, 241, 164);
+color: #000000;
+max-width: 400px;
+margin: 10px auto;
+padding: 50px;
+border-radius: 10px;
+margin-left: 100px;
+}
+
+.form-container input,
+.form-container select {
+width: 100%;
+padding: 8px;
+margin-bottom: 15px;
+border: 1px solid #ccc;
+border-radius: 5px;
+}
+
+.form-container input[type="submit"] {
+background-color: rgb(0, 0, 0);
+color: white;
+cursor: pointer;
+border: none;
+transition: background-color 0.3s;
+}
+
+.form-container input[type="submit"]:hover {
+background-color: #107615;
+}
+.form-wrapper {
+background-image: url('/static/pexels-scottwebb-305821.jpg');
+background-size:cover;
+background-position: center;
+background-repeat:no-repeat;
+display: flex;
+justify-content: center;
+padding: 60px 20px;
+align-items: center;
+}
+.footer {
+display: flex;
+justify-content: center;
+gap: 30px;
+padding: 20px;
+background-color: #111;
+color: white;
+margin-top: 40px;
+}
+
+.footer a {
+color: #ccc;
+font-size: 24px;
+transition: color 0.3s;
+text-decoration: none;
+}
+
+.footer a:hover {
+color: #FFD700;
+}
+.result-container {
+    background-color: #fff;
+    color: #000;
+    border-radius: 8px;
+    padding: 20px;
+    margin-top: 20px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.2);
+}
+    </style>
+
+</head>
+<body>
+    <div class="menu">
+        <ul>
+            <li><a href="#">Home</a></li>
+            <li><a href="#">About</a></li>
+            <li><a href="#">Services</a></li>
+            <li><a href="#">Contact</a></li>
+        </ul>
+    </div>
+    <br>
+    <div class="form-wrapper">
+        
+    <div class="form-container">
+    <h2>Kişilik Analizi Formu</h2>
+    <form action="/tahmin" method="post">
+        Yalnız Geçirilen Süre (saat): <input type="number" step="any" name="Time_spent_Alone" ><br>
+        Sahne Korkusu Var mı? 
+        <select name="Stage_fear">
+            <option value="1">Evet</option>
+            <option value="0">Hayır</option>
+        </select><br>
+        Sosyal Etkinlik Katılımı: <input type="number" step="any" name="Social_event_attendance"><br>
+        Dışarı Çıkma Sıklığı: <input type="number" step="any" name="Going_outside"><br>
+        Sosyalleşme Sonrası Yorgunluk Var mı? 
+        <select name="Drained_after_socializing">
+            <option value="1">Evet</option>
+            <option value="0">Hayır</option>
+        </select><br>
+        Arkadaş Çevresi Büyüklüğü: <input type="number" step="any" name="Friends_circle_size"><br>
+        Paylaşım Sıklığı (Post): <input type="number" step="any" name="Post_frequency"><br><br>
+        <input type="submit" value="Tahmin Et">
+    </form>
+        {% if result %}
+<div class="result-container">
+    <h3>Tahmin Sonucu</h3>
+    <p>Kişilik Tipi: <strong>{{ result }}</strong></p>
+    <p>Modelin tahmin ettiği olasılık: <strong>{{ probability }}</strong></p>
+</div>
+{% endif %}
+    </div>
+    </div>
+    <div class="footer">
+    <a href="https://www.linkedin.com/in/şevval-durmaz-a00321265" target="_blank"><i class="fab fa-linkedin"></i></a>
+    <a href="mailto:sevval.durmz@gmail.com"><i class="fas fa-envelope"></i></a>
+    <a href="tel:+905511113277" title="Ara"><i class="fas fa-phone"></i></a>
+    <a href="https://github.com/sevvaldurmaz" target="_blank"><i class="fab fa-github"></i></a>
+</div>
+
+</body>
+</html>
